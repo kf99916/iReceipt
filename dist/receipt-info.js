@@ -15,38 +15,53 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ReceiptInfo = function () {
-    function ReceiptInfo(number, date, seller, buyer, type, donateMark, printMark) {
+    function ReceiptInfo(number, date, seller, buyer, isPrinted, type, carrier, donationID) {
         _classCallCheck(this, ReceiptInfo);
 
         this.number = number;
         this.date = date;
         this.seller = seller;
         this.buyer = buyer;
-        this.type = type;
-        this.donateMark = donateMark;
-        this.printMark = printMark;
+        this.buyer.id = this.buyer.id || '0000000000';
+        this.isPrinted = isPrinted;
+        this.type = type || '07';
+        this.carrier = carrier;
+        this.donationID = donationID;
     }
 
     _createClass(ReceiptInfo, [{
         key: 'toXMLObject',
         value: function toXMLObject() {
-            return {
+            var xmlObject = {
                 InvoiceNumber: this.invoiceNumber,
                 InvoiceDate: (0, _esm2.default)(this.date, 'YYYYMMDD'),
                 InvoiceTime: (0, _esm2.default)(this.date, 'hh:mm:ss'),
                 Seller: {
-                    Identifier: this.seller.identifier,
+                    Identifier: this.seller.id,
                     Name: this.seller.name
                 },
                 Buyer: {
-                    Identifier: this.buyer.identifier,
-                    Name: this.buyer.identifier
+                    Identifier: this.buyer.id,
+                    Name: this.buyer.name
                 },
                 InvoiceType: this.type,
-                DonateMark: this.donateMark,
-                PrintMark: this.printMark,
+                DonateMark: 0,
+                PrintMark: this.isPrinted ? 'Y' : 'N',
                 RandomNumber: Math.floor(1000 + Math.random() * 9000)
             };
+
+            if (this.donationID) {
+                xmlObject.DonateMark = 1;
+                xmlObject.NPOBAN = this.donationID;
+            }
+
+            if (this.carrier) {
+                xmlObject.CarrierType = this.carrier.type;
+                xmlObject.CarrierId1 = this.carrier.id;
+                xmlObject.CarrierId2 = this.carrier.id;
+            }
+
+            return xmlObject;
         }
     }]);
 
