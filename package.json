@@ -1,0 +1,32 @@
+{
+    "name": "ireceipt",
+    "version": "1.0.0",
+    "description":
+        "Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau",
+    "main": "dist/ireceipt.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build:dev": "node_modules/.bin/babel src --out-dir dist",
+        "build": "node_modules/.bin/babel src --out-dir dist --minified"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kf99916/iReceipt.git"
+    },
+    "keywords": ["electronic", "receipt", "taiwan"],
+    "author": "Zheng-Xiang Ke",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/kf99916/iReceipt/issues"
+    },
+    "homepage": "https://github.com/kf99916/iReceipt",
+    "files": ["dist"],
+    "devDependencies": {
+        "babel-cli": "~6.26",
+        "babel-preset-env": "~1.6"
+    },
+    "dependencies": {
+        "date-fns": "2.0.0-alpha.3",
+        "xml2js": "~0.4"
+    }
+}
