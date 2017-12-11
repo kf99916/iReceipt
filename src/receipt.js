@@ -29,4 +29,4 @@ class Receipt {
     }
 }
 
-export default IReceipt;
+export default Receipt;
