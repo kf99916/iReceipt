@@ -24,7 +24,9 @@ class Receipt {
             Amounts: this.amount.toXMLObject()
         };
 
-        const builder = new xml2js.Builder();
+        const builder = new xml2js.Builder({
+            rootName: 'Invoice'
+        });
         return builder.buildObject(receiptObject);
     }
 }
