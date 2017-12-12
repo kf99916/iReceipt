@@ -1,6 +1,6 @@
 {
     "name": "ireceipt",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description":
         "Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau",
     "main": "dist/ireceipt.js",
@@ -13,7 +13,14 @@
         "type": "git",
         "url": "git+https://github.com/kf99916/iReceipt.git"
     },
-    "keywords": ["electronic", "receipt", "taiwan"],
+    "keywords": [
+        "electronic",
+        "receipt",
+        "taiwan",
+        "xml",
+        "taxation",
+        "bureau"
+    ],
     "author": "Zheng-Xiang Ke",
     "license": "MIT",
     "bugs": {
