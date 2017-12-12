@@ -37,19 +37,37 @@ window.console.log(receiptObject.toXML());
 
 Store the receipt information.
 
-`constructor(number, date, seller, buyer, isPrinted, type, carrier, donationID)`
+`constructor(number, date, seller, buyer, type, carrier, donationID)`
+
+`number` receipt number  
+`date` receipt date  
+`seller` seller information, including id and name. (`{ id: '{{SELLER_ID}}', name: '{{SELLER_NAME}}' }`)  
+`buyer` buyer information, including id and name. (`{ id: '{{BUYER_ID}}', name: '{{BUYER_NAME}}' }`)  
+`type` receipt type (default `07`)  
+`carrier` receipt carrier information, including id and type. (`{id: '{{CARRIER_ID}}', type:'CARRIER_TYPE'}`)  
+`donationID` charity's love code (愛心碼)
 
 ### Item
 
-The item buyed by buyer.
+The product item buyed by buyer.
 
 `constructor(description, unitPrice, sequenceNumber, quantity)`
+
+`description` product item's description  
+`unitPrice` unit price for a product item  
+`sequenceNumber` sequence number  
+`quantity` quantity of product items (default `1`)
 
 ### Amount
 
 Store the amount information.
 
 `constructor(amount, taxAmount, freeTaxAmount, zeroTaxAmount)`
+
+`amount` receipt amount  
+`taxAmount` tax amount  
+`freeTaxAmount` free tax amount (default `0`)  
+`zeroTaxAmount` zero tax amount (default `0`)
 
 ### Receipt
 
