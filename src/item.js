@@ -1,9 +1,9 @@
 class Item {
     constructor(description, unitPrice, sequenceNumber, quantity) {
         this.description = description;
-        this.unitPrice = unitPrice;
+        this.unitPrice = parseInt(unitPrice);
         this.sequenceNumber = sequenceNumber;
-        this.quantity = quantity || 1;
+        this.quantity = parseInt(quantity) || 1;
     }
 
     toXMLObject() {

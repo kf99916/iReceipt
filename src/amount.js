@@ -1,6 +1,6 @@
 class Amount {
     constructor(amount, taxAmount, freeTaxAmount, zeroTaxAmount) {
-        this.amount = amount;
+        this.amount = parseInt(amount);
         this.taxAmount = Math.round(taxAmount);
         this.freeTaxAmount = Math.max(Math.round(freeTaxAmount), 0) || 0;
         this.zeroTaxAmount = Math.max(Math.round(zeroTaxAmount), 0) || 0;
