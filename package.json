@@ -2,12 +2,14 @@
     "name": "ireceipt",
     "version": "0.1.0",
     "description": "Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau",
-    "main": "./dist/ireceipt.js",
+    "main": "dist/ireceipt.js",
+    "style": "dist/css/receipt.css",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build:dev": "babel ./src --out-dir ./dist --source-maps inline --copy-files",
-        "watch": "babel --watch ./src --out-dir ./dist --source-maps inline --copy-files",
-        "build": "babel ./src --out-dir ./dist --copy-files --minified",
+        "css-compile": "node-sass src/scss/receipt.scss --output dist/css/",
+        "build:dev": "babel src --out-dir dist --source-maps inline",
+        "watch": "babel --watch src --out-dir dist --source-maps inline",
+        "build": "babel src --out-dir dist --minified && npm run css-compile",
         "prepublish": "npm run build"
     },
     "repository": {
@@ -33,7 +35,8 @@
     ],
     "devDependencies": {
         "babel-cli": "~6.26",
-        "babel-preset-env": "~1.6"
+        "babel-preset-env": "~1.6",
+        "node-sass": "^4.7.2"
     },
     "dependencies": {
         "date-fns": "2.0.0-alpha.3",

@@ -1,0 +1,140 @@
+.einvoice-qrcode-left,
+.einvoice-qrcode-right {
+  width: 2cm;
+  height: 2cm; }
+
+.order-adress {
+  position: absolute;
+  left: 4cm;
+  top: 4.5cm;
+  font-size: 0.4cm; }
+
+.order-name {
+  position: absolute;
+  left: 4cm;
+  top: 5.5cm;
+  font-size: 0.4cm; }
+
+.order-id {
+  position: absolute;
+  top: 8cm;
+  left: 5cm;
+  font-size: 0.4cm; }
+
+.receipt-year-month {
+  position: absolute;
+  top: 13.5cm;
+  left: 2.5cm;
+  font-size: 0.6cm; }
+
+.receipt-invoice-number {
+  position: absolute;
+  top: 14.2cm;
+  left: 2.8cm;
+  font-size: 0.6cm; }
+
+.receipt-issue-time {
+  position: absolute;
+  top: 14.9cm;
+  left: 1.8cm; }
+
+.receipt-random-number {
+  position: absolute;
+  top: 15.3cm;
+  left: 1.8cm; }
+
+.receipt-amount {
+  position: absolute;
+  top: 15.3cm;
+  left: 5.1cm; }
+
+.einvoice-identifier {
+  position: absolute;
+  top: 15.7cm;
+  left: 1.8cm; }
+
+.einvoice-barcode {
+  position: absolute;
+  top: 16.2cm;
+  left: 1.8cm;
+  width: 5cm;
+  height: 0.6cm; }
+
+.einvoice-qrcode-left {
+  position: absolute;
+  top: 17cm;
+  left: 1.8cm; }
+
+.einvoice-qrcode-right {
+  position: absolute;
+  top: 17cm;
+  left: 4.8cm; }
+
+.trade-detail-order-id {
+  position: absolute;
+  top: 22cm;
+  left: 1.9cm;
+  font-size: 0.4cm; }
+
+.trade-detail-sales-amount {
+  position: absolute;
+  top: 23cm;
+  left: 1.9cm;
+  font-size: 0.4cm; }
+
+.trade-detail-tax-explanation {
+  position: absolute;
+  top: 24cm;
+  left: 1.9cm;
+  font-size: 0.4cm; }
+
+.trade-detail-tax-amount {
+  position: absolute;
+  top: 25cm;
+  left: 1.9cm;
+  font-size: 0.4cm; }
+
+.trade-detail-total-amount {
+  position: absolute;
+  top: 26cm;
+  left: 1.9cm;
+  font-size: 0.4cm; }
+
+.order-items {
+  position: absolute;
+  top: 11.2cm;
+  left: 7.8cm;
+  height: 7.4cm;
+  overflow: hidden;
+  font-size: 0.3cm; }
+
+.order-item-name {
+  width: 8.3cm; }
+
+.order-item-price {
+  width: 1cm; }
+
+.order-item-number,
+.order-items-total-number {
+  width: 0.5cm; }
+
+.order-item-amount,
+.order-items-total-amount {
+  width: 1.5cm; }
+
+.order-items-total {
+  position: absolute;
+  top: 19cm;
+  left: 17.4cm;
+  font-size: 0.3cm; }
+
+.div-order {
+  height: 29.7cm;
+  width: 21cm;
+  position: relative; }
+
+.invoice_notice {
+  position: absolute;
+  top: 22cm;
+  left: 15.5cm;
+  font-size: 0.4cm; }
