@@ -31,6 +31,13 @@ const info = new IReceipt.ReceiptInfo(
     receiptObject = new IReceipt.Receipt(info, items, amount);
 
 window.console.log(receiptObject.toXML());
+
+// Taiwan Receipt Lottery
+// The format of the list of winners:
+// 53925591  10510LC60123189...
+// 53925591  10510LC60122037...
+const winnersList = IReceipt.Receipt.parseWinnersList('{{WINNERS_LIST}}');
+window.console.log(receiptObject.isWinning(winnersList));
 ```
 
 ### ReceiptInfo
