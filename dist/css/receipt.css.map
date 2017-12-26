@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "receipt.css",
+	"sources": [
+		"../../src/scss/receipt.scss"
+	],
+	"names": [],
+	"mappings": ""
+}
