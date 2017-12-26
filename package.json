@@ -1,13 +1,14 @@
 {
     "name": "ireceipt",
     "version": "0.2.0",
-    "description":
-        "Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau",
+    "description": "Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau",
     "main": "dist/ireceipt.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build:dev": "node_modules/.bin/babel src --out-dir dist",
-        "build": "node_modules/.bin/babel src --out-dir dist --minified"
+        "build:dev": "node_modules/.bin/babel src --out-dir dist && npm run css-compile",
+        "build": "node_modules/.bin/babel src --out-dir dist --minified && npm run css-minify",
+        "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --output dist/css src/scss",
+        "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/receipt.min.css src/scss/receipt.scss"
     },
     "repository": {
         "type": "git",
@@ -27,10 +28,14 @@
         "url": "https://github.com/kf99916/iReceipt/issues"
     },
     "homepage": "https://github.com/kf99916/iReceipt",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "devDependencies": {
         "babel-cli": "~6.26",
-        "babel-preset-env": "~1.6"
+        "babel-preset-env": "~1.6",
+        "clean-css": "^4.1.9",
+        "node-sass": "^4.7.2"
     },
     "dependencies": {
         "date-fns": "2.0.0-alpha.3",
