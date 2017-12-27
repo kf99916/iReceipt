@@ -8,7 +8,8 @@
         "build:dev": "node_modules/.bin/babel src --out-dir dist && npm run css-compile",
         "build": "node_modules/.bin/babel src --out-dir dist --minified && npm run css-minify",
         "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --output dist/css src/scss",
-        "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/receipt.min.css src/scss/receipt.scss"
+        "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/receipt.min.css src/scss/receipt.scss",
+        "watch": "babel --watch src --out-dir dist"
     },
     "repository": {
         "type": "git",
