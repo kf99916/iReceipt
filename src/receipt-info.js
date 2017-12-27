@@ -1,7 +1,16 @@
 import { format } from 'date-fns/esm';
 
 class ReceiptInfo {
-    constructor(number, date, seller, buyer, type, carrier, donationID) {
+    constructor(
+        number,
+        date,
+        seller,
+        buyer,
+        type,
+        carrier,
+        donationID,
+        orderno
+    ) {
         this.number = number;
         this.date = date;
         this.seller = seller;
@@ -10,6 +19,8 @@ class ReceiptInfo {
         this.type = type || '07';
         this.carrier = carrier;
         this.donationID = donationID;
+        this.randomNumber = Math.floor(1000 + Math.random() * 9000);
+        this.orderno = orderno;
     }
 
     toXMLObject() {
@@ -28,7 +39,7 @@ class ReceiptInfo {
             InvoiceType: this.type,
             DonateMark: 0,
             PrintMark: this.carrier ? 'N' : 'Y',
-            RandomNumber: Math.floor(1000 + Math.random() * 9000)
+            RandomNumber: this.randomNumber
         };
 
         if (this.donationID) {
