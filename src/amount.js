@@ -1,22 +1,59 @@
+import TaxType from './tax-type';
+
 class Amount {
-    constructor(amount, taxAmount, freeTaxAmount, zeroTaxAmount) {
-        this.amount = parseInt(amount);
-        this.taxAmount = Math.round(taxAmount);
-        this.freeTaxAmount = Math.max(Math.round(freeTaxAmount), 0) || 0;
-        this.zeroTaxAmount = Math.max(Math.round(zeroTaxAmount), 0) || 0;
-        this.taxType = this.freeTaxAmount === 0 ? 1 : this.amount === 0 ? 3 : 9;
-        this.taxRate = this.taxType === 3 ? 0 : 0.05;
+    constructor(taxItems, freeTaxItems, zeroTaxItems) {
+        const taxRate = 0.05;
+        this.salesAmount = Math.round(
+            taxItems.reduce((amount, item) => amount + item.amount) /
+                (1 + taxRate)
+        );
+        this.freeTaxSalesAmount = freeTaxItems.reduce(
+            (amount, item) => amount + item.amount
+        );
+        this.zeroTaxSalesAmount = zeroTaxItems.reduce(
+            (amount, item) => amount + item.amount
+        );
+
+        const hasTax = this.salesAmount === 0,
+            hasFreeTax = this.freeTaxSalesAmount === 0,
+            hasZeroTax = this.zeroTaxSalesAmount === 0;
+
+        this.taxType = TaxType.SPECIAL_TAX;
+        if (
+            (hasTax && hasFreeTax) ||
+            (hasTax && hasZeroTax) ||
+            (hasFreeTax && hasZeroTax)
+        ) {
+            this.taxType = TaxType.COMPOUND_TAX;
+        } else if (hasTax) {
+            this.taxType = TaxType.TAX;
+        } else if (hasFreeTax) {
+            this.taxType = TaxType.FREE_TAX;
+        } else if (hasZeroTax) {
+            this.taxType = TaxType.ZERO_TAX;
+        }
+        this.taxRate =
+            this.taxType === TaxType.FREE_TAX ||
+            this.taxType === TaxType.ZERO_TAX
+                ? 0
+                : taxRate;
+        this.taxAmount = Math.round(this.salesAmount * this.taxRate);
+        this.totalAmount =
+            this.salesAmount +
+            this.freeTaxSalesAmount +
+            this.zeroTaxSalesAmount +
+            this.taxAmount;
     }
 
     toXMLObject() {
         return {
-            SalesAmount: this.amount - this.taxAmount,
-            FreeTaxSalesAmount: this.freeTaxAmount,
-            ZeroTaxSalesAmount: this.zeroTaxAmount,
+            SalesAmount: this.salesAmount,
+            FreeTaxSalesAmount: this.freeTaxSalesAmount,
+            ZeroTaxSalesAmount: this.zeroTaxSalesAmount,
             TaxType: this.taxType,
             TaxRate: this.taxRate,
             TaxAmount: this.taxAmount,
-            TotalAmount: this.amount + this.freeTaxAmount
+            TotalAmount: this.totalAmount
         };
     }
 }
