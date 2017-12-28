@@ -1,6 +1,6 @@
 # iReceipt
 
-Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau. The spec. from National Taxation Bureau is very awful to waste a lot of time. iReceipt can save developers' and accountants' time!!!
+Generate Taiwan's electronic receipt including the layout, barcode, and XML for National Taxation Bureau. The spec. from National Taxation Bureau is very trivial but very complicated and hard to read. iReceipt can save your life and time!!!
 
 <a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/v/ireceipt.svg" alt="Version"></a>
 <a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/dm/ireceipt.svg" alt="Downloads"></a>
@@ -101,6 +101,12 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `A
 #### Member Methods
 
 `toXML()` Receipt object to xml string.
+
+## Reference
+
+* <a href="https://www.einvoice.nat.gov.tw/">E-invoice Platform (財政部電子發票整合服務平台)</a>
+* <a href="https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1479449792874_0.6(20161115).pdf">電子發票證明聯一維及二維條碼規格說明(V1.6)</a>
+* <a href="https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1447235507091_0.zip">電子發票資料交換標準文件與範例(V3.1.2)</a>
 
 ## Author
 
