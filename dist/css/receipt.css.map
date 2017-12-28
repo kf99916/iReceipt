@@ -4,6 +4,9 @@
 	"sources": [
 		"../../src/scss/receipt.scss"
 	],
+	"sourcesContent": [
+		""
+	],
 	"names": [],
 	"mappings": ""
 }
