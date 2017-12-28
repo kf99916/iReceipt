@@ -1,4 +1,6 @@
 import xml2js from 'xml2js';
+import TaxType from './tax-type';
+import Amount from './amount';
 
 const defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
@@ -7,10 +9,14 @@ const defaultInvoiceAttr = {
 };
 
 class Receipt {
-    constructor(info, items, amount) {
+    constructor(info, items) {
         this.info = info;
         this.items = items;
-        this.amount = amount;
+        this.amount = new Amount(
+            this.taxItems,
+            this.freeTaxItems,
+            this.zeroTaxItems
+        );
     }
 
     // The format of the list of winners:
@@ -42,6 +48,24 @@ class Receipt {
 
     isWinning(winningNumbers) {
         return winningNumbers.indexOf(this.info.number) !== -1;
+    }
+
+    get taxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.TAX;
+        });
+    }
+
+    get freeTaxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.FREE_TAX;
+        });
+    }
+
+    get zeroTaxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.ZERO_TAX;
+        });
     }
 }
 
