@@ -1,6 +1,6 @@
 {
     "name": "ireceipt",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau",
     "main": "dist/ireceipt.js",
     "scripts": {

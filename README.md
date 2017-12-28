@@ -27,8 +27,7 @@ const info = new IReceipt.ReceiptInfo(
         false
     ),
     items = [new IReceipt.Item('{{ITEM_DESCRIPTION}}', 3000, 1)],
-    amount = new IReceipt.Amount(3000, 0),
-    receiptObject = new IReceipt.Receipt(info, items, amount);
+    receiptObject = new IReceipt.Receipt(info, items);
 
 window.console.log(receiptObject.toXML());
 
@@ -44,7 +43,7 @@ window.console.log(receiptObject.isWinning(winnersList));
 
 Store the receipt information.
 
-`constructor(number, date, seller, buyer, type, carrier, donationID)`
+`constructor(number, date, seller, buyer, type, carrier, donationID, orderno)`
 
 `number` receipt number  
 `date` receipt date  
@@ -53,34 +52,49 @@ Store the receipt information.
 `type` receipt type (default `07`)  
 `carrier` receipt carrier information, including id and type. (`{id: '{{CARRIER_ID}}', type:'CARRIER_TYPE'}`)  
 `donationID` charity's love code (愛心碼)
+`orderno` The order number
 
 ### Item
 
 The product item buyed by buyer.
 
-`constructor(description, unitPrice, sequenceNumber, quantity)`
+`constructor(description, unitPrice, sequenceNumber, quantity, taxType)`
 
 `description` product item's description  
 `unitPrice` unit price for a product item  
 `sequenceNumber` sequence number  
 `quantity` quantity of product items (default `1`)
+`taxType` The tax type (default `TaxType.TAX`)
 
 ### Amount
 
 Store the amount information.
 
-`constructor(amount, taxAmount, freeTaxAmount, zeroTaxAmount)`
+`constructor(taxItems, freeTaxItems, zeroTaxItems)`
 
-`amount` receipt amount  
-`taxAmount` tax amount  
-`freeTaxAmount` free tax amount (default `0`)  
-`zeroTaxAmount` zero tax amount (default `0`)
+`taxItems` The tax items  
+`freeTaxItems` The free tax items  
+`zeroTaxItems` The zero tax items
+
+### TaxType
+
+Tax type enum.
+
+```js
+{
+    TAX: 1,
+    ZERO_TAX: 2,
+    FREE_TAX: 3,
+    SPECIAL_TAX: 4,
+    COMPOUND_TAX: 9
+}
+```
 
 ### Receipt
 
-The receipt JavaScript object. It owns a `ReceiptInfo`, `Items`, and a `Amount`.
+The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `Amount` based on items.
 
-`constructor(info, items, amount)`
+`constructor(info, items)`
 
 #### Member Methods
 
@@ -89,6 +103,7 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Items`, and a `Amount`.
 ## Author
 
 Zheng-Xiang Ke, kf99916@gmail.com
+Sin-Fong Lyu, kingispeak@gmail.com
 
 ## License
 
