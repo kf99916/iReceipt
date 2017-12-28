@@ -54,17 +54,9 @@ class Receipt {
         return this.info.date.getFullYear() - 1911;
     }
 
-    getMonthsInterval() {
-        let month = this.info.date.getMonth() + 1,
-            months = [];
-
-        if (month % 2 === 0) {
-            months.push(month - 1, month);
-        } else {
-            months.push(month, month + 1);
-        }
-
-        return months;
+    getWinningMonths() {
+        let month = this.info.date.getMonth() + 1;
+        return month % 2 === 0 ? [month - 1, month] : [month, month + 1];
     }
 
     generateBarCodeString() {
