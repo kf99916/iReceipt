@@ -2,7 +2,9 @@
 
 Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau. The spec. from National Taxation Bureau is very awful to waste a lot of time. iReceipt can save developers' and accountants' time!!!
 
-[![License](https://img.shields.io/github/license/kf99916/iReceipt.svg)](LICENSE)
+<a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/v/ireceipt.svg" alt="Version"></a>
+<a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/dm/ireceipt.svg" alt="Downloads"></a>
+<a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/l/ireceipt.svg" alt="License"></a>
 
 ## Requirements
 
@@ -51,7 +53,7 @@ Store the receipt information.
 `buyer` buyer information, including id and name. (`{ id: '{{BUYER_ID}}', name: '{{BUYER_NAME}}' }`)  
 `type` receipt type (default `07`)  
 `carrier` receipt carrier information, including id and type. (`{id: '{{CARRIER_ID}}', type:'CARRIER_TYPE'}`)  
-`donationID` charity's love code (愛心碼)
+`donationID` charity's love code (愛心碼)   
 `orderno` The order number
 
 ### Item
@@ -63,7 +65,7 @@ The product item buyed by buyer.
 `description` product item's description  
 `unitPrice` unit price for a product item  
 `sequenceNumber` sequence number  
-`quantity` quantity of product items (default `1`)
+`quantity` quantity of product items (default `1`)   
 `taxType` The tax type (default `TaxType.TAX`)
 
 ### Amount
