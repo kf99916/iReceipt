@@ -4,19 +4,21 @@ class Amount {
     constructor(taxItems, freeTaxItems, zeroTaxItems) {
         const taxRate = 0.05;
         this.salesAmount = Math.round(
-            taxItems.reduce((amount, item) => amount + item.amount) /
-                (1 + taxRate)
+            taxItems.reduce(
+                (amount, item) => (amount + item.amount) / (1 + taxRate),
+                0
+            )
         );
-        this.freeTaxSalesAmount = freeTaxItems.reduce(
-            (amount, item) => amount + item.amount
+        this.freeTaxSalesAmount = Math.round(
+            freeTaxItems.reduce((amount, item) => amount + item.amount, 0)
         );
-        this.zeroTaxSalesAmount = zeroTaxItems.reduce(
-            (amount, item) => amount + item.amount
+        this.zeroTaxSalesAmount = Math.round(
+            zeroTaxItems.reduce((amount, item) => amount + item.amount, 0)
         );
 
-        const hasTax = this.salesAmount === 0,
-            hasFreeTax = this.freeTaxSalesAmount === 0,
-            hasZeroTax = this.zeroTaxSalesAmount === 0;
+        const hasTax = this.salesAmount !== 0,
+            hasFreeTax = this.freeTaxSalesAmount !== 0,
+            hasZeroTax = this.zeroTaxSalesAmount !== 0;
 
         this.taxType = TaxType.SPECIAL_TAX;
         if (
