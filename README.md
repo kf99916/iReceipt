@@ -104,7 +104,7 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `A
 
 ## Author
 
-Zheng-Xiang Ke, kf99916@gmail.com
+Zheng-Xiang Ke, kf99916@gmail.com   
 Sin-Fong Lyu, kingispeak@gmail.com
 
 ## License
