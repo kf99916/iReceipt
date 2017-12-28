@@ -6,9 +6,10 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build:dev": "node_modules/.bin/babel src --out-dir dist && npm run css-compile",
-        "build": "node_modules/.bin/babel src --out-dir dist --minified && npm run css-minify",
-        "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --output dist/css src/scss",
-        "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/receipt.min.css src/scss/receipt.scss"
+        "build": "node_modules/.bin/babel src --out-dir dist --minified && npm run css-compile && npm run css-minify",
+        "css-compile": "node_modules/.bin/node-sass --output-style expanded --source-map true --source-map-contents true --output dist/css src/scss",
+        "css-minify": "node_modules/.bin/cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/receipt.min.css src/scss/receipt.scss",
+        "watch": "node_modules/.bin/babel --watch src --out-dir dist"
     },
     "repository": {
         "type": "git",
@@ -34,7 +35,7 @@
     "devDependencies": {
         "babel-cli": "~6.26",
         "babel-preset-env": "~1.6",
-        "clean-css": "~4.1",
+        "clean-css-cli": "~4.1",
         "node-sass": "~4.7"
     },
     "dependencies": {
