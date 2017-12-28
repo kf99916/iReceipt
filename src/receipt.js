@@ -50,6 +50,32 @@ class Receipt {
         return winningNumbers.indexOf(this.info.number) !== -1;
     }
 
+    getChineseYear() {
+        return this.info.date.getFullYear() - 1911;
+    }
+
+    getMonthsInterval() {
+        let month = this.info.date.getMonth() + 1,
+            months = [];
+
+        if (month % 2 === 0) {
+            months.push(month - 1, month);
+        } else {
+            months.push(month, month + 1);
+        }
+
+        return months;
+    }
+
+    generateBarCodeString() {
+        return (
+            this.getChineseYear().toString() +
+            this.getMonthsInterval()[1] +
+            this.info.number +
+            this.info.randomNumber
+        );
+    }
+
     get taxItems() {
         return this.items.filter(item => {
             return item.taxType === TaxType.TAX;
