@@ -62,8 +62,7 @@ class Receipt {
     generateBarCodeString() {
         return (
             this.getChineseYear().toString() +
-            this.getMonthsInterval()[1] +
-            this.getWinningMonths()[1] +
+            ('0' + this.getWinningMonths()[1]).slice(-2) +
             this.info.number +
             this.info.randomNumber
         );
