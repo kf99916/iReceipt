@@ -63,6 +63,7 @@ class Receipt {
         return (
             this.getChineseYear().toString() +
             this.getMonthsInterval()[1] +
+            this.getWinningMonths()[1] +
             this.info.number +
             this.info.randomNumber
         );
