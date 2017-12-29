@@ -1,5 +1,7 @@
 import xml2js from 'xml2js';
 import TaxType from './tax-type';
+import ReceiptInfo from './receipt-info';
+import Item from './item';
 import Amount from './amount';
 
 const defaultInvoiceAttr = {
@@ -10,6 +12,16 @@ const defaultInvoiceAttr = {
 
 class Receipt {
     constructor(info, items) {
+        if (!(info instanceof ReceiptInfo)) {
+            throw new TypeError('Info is not ReceiptInfo class!');
+        }
+        const invalidItems = items.filter(item => {
+            return !(item instanceof Item);
+        });
+        if (invalidItems.length > 0) {
+            throw new TypeError('Some items are not Item class!');
+        }
+
         this.info = info;
         this.items = items;
         this.amount = new Amount(
@@ -88,4 +100,10 @@ class Receipt {
     }
 }
 
-export default Receipt;
+export default {
+    Receipt: Receipt,
+    ReceiptInfo: ReceiptInfo,
+    Item: Item,
+    Amount: Amount,
+    TaxType: TaxType
+};
