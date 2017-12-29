@@ -15,7 +15,6 @@ class ReceiptInfo {
         this.date = date;
         this.seller = seller;
         this.buyer = buyer;
-        this.buyer.id = this.buyer.id || '0000000000';
         this.type = type || '07';
         this.carrier = carrier;
         this.donationID = donationID;
@@ -33,7 +32,7 @@ class ReceiptInfo {
                 Name: this.seller.name
             },
             Buyer: {
-                Identifier: this.buyer.id,
+                Identifier: this.buyer.id || '0000000000',
                 Name: this.buyer.name
             },
             InvoiceType: this.type,
