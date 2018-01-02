@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export default {
-    input: 'src/receipt.js',
+    input: 'src/js/receipt.js',
     output: {
         file: 'dist/js/' + filename,
         format: 'umd'
