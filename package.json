@@ -42,7 +42,6 @@
         "rollup": "~0.53",
         "rollup-plugin-babel": "~3.0",
         "rollup-plugin-babel-minify": "~3.1",
-        "rollup-watch": "~4.3",
         "npm-run-all": "~4.1"
     },
     "dependencies": {
