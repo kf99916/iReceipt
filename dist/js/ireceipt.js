@@ -1,6 +1,6 @@
 /*!
-    * Ireceipt v0.3.0 (https://github.com/kf99916/iReceipt)
-    * Copyright 2017 Zheng-Xiang Ke and Sin-Fong Lyu
+    * Ireceipt v0.3.1 (https://github.com/kf99916/iReceipt)
+    * Copyright 2018 Zheng-Xiang Ke and Sin-Fong Lyu
     * Licensed under MIT (https://github.com/kf99916/iReceipt/blob/master/LICENSE)
     */
 (function (global, factory) {

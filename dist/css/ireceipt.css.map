@@ -1,8 +1,8 @@
 {
 	"version": 3,
-	"file": "receipt.css",
+	"file": "ireceipt.css",
 	"sources": [
-		"../../src/scss/receipt.scss"
+		"../../src/scss/ireceipt.scss"
 	],
 	"sourcesContent": [
 		""
