@@ -1,14 +1,13 @@
 import xml2js from 'xml2js';
 import TaxType from './tax-type';
 import Amount from './amount';
-import Utils from './common/utils';
+import utils from './common/utils';
 
 const defaultInvoiceAttr = {
-        xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
-        'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-        'xsi:schemaLocation': 'urn:GEINV:eInvoiceMessage:C0401:3.1 C0401.xsd'
-    },
-    utils = new Utils();
+    xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
+    'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+    'xsi:schemaLocation': 'urn:GEINV:eInvoiceMessage:C0401:3.1 C0401.xsd'
+};
 
 class Receipt {
     constructor(info, items) {
