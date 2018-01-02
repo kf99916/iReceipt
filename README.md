@@ -2,9 +2,11 @@
 
 Generate Taiwan's electronic receipt including the layout, barcode, and XML for National Taxation Bureau. The spec. from National Taxation Bureau is very trivial but very complicated and hard to read. iReceipt can save your life and time!!!
 
-<a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/v/ireceipt.svg" alt="Version"></a>
-<a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/dm/ireceipt.svg" alt="Downloads"></a>
-<a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/l/ireceipt.svg" alt="License"></a>
+[![npm](https://img.shields.io/npm/dt/ireceipt.svg)](https://www.npmjs.com/package/ireceipt)
+[![GitHub stars](https://img.shields.io/github/stars/kf99916/iReceipt.svg)](https://github.com/kf99916/iReceipt/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/kf99916/iReceipt.svg)](https://github.com/kf99916/iReceipt/network)
+[![npm](https://img.shields.io/npm/v/ireceipt.svg)](https://www.npmjs.com/package/ireceipt)
+[![GitHub license](https://img.shields.io/github/license/kf99916/iReceipt.svg)](https://github.com/kf99916/iReceipt/blob/master/LICENSE)
 
 ## Installation
 
