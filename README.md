@@ -6,10 +6,6 @@ Generate Taiwan's electronic receipt including the layout, barcode, and XML for 
 <a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/dm/ireceipt.svg" alt="Downloads"></a>
 <a href="https://www.npmjs.com/package/ireceipt"><img src="https://img.shields.io/npm/l/ireceipt.svg" alt="License"></a>
 
-## Requirements
-
-iReceipt is written with ECMAScript 6. You can leverage [Babel](https://babeljs.io/) and [Webpack](https://webpack.js.org/) to make all browsers available.
-
 ## Installation
 
 ```bash
