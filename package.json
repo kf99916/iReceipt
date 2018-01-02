@@ -5,11 +5,13 @@
     "main": "dist/js/ireceipt.min.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build:dev": "node_modules/.bin/rollup --environment NODE_ENV:develop --config build/rollup.config.js --sourcemap && npm run css-compile",
-        "build": "node_modules/.bin/rollup --environment NODE_ENV:production --config build/rollup.config.js --sourcemap && npm run css-compile && npm run css-minify",
-        "css-compile": "node_modules/.bin/node-sass --output-style expanded --source-map true --source-map-contents true --output dist/css src/scss",
-        "css-minify": "node_modules/.bin/cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/receipt.min.css src/scss/receipt.scss",
-        "watch": "node_modules/.bin/babel --watch src --out-dir dist"
+        "build": "run-p build:*",
+        "build:js": "node_modules/.bin/rollup --environment NODE_ENV:production --config build/rollup.config.js --sourcemap",
+        "build:css": "run-s css:*",
+        "dev": "run-p dev:*",
+        "dev:js": "node_modules/.bin/rollup --environment NODE_ENV:develop --config build/rollup.config.js --sourcemap --watch",
+        "css:compile": "node_modules/.bin/node-sass --output-style expanded --source-map true --source-map-contents true --output dist/css src/scss",
+        "css:minify": "node_modules/.bin/cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/ireceipt.min.css src/scss/ireceipt.scss"
     },
     "repository": {
         "type": "git",
@@ -39,7 +41,9 @@
         "node-sass": "~4.7",
         "rollup": "~0.53",
         "rollup-plugin-babel": "~3.0",
-        "rollup-plugin-babel-minify": "~3.1"
+        "rollup-plugin-babel-minify": "~3.1",
+        "rollup-watch": "~4.3",
+        "npm-run-all": "~4.1"
     },
     "dependencies": {
         "date-fns": "2.0.0-alpha.3",
