@@ -3,6 +3,7 @@ import TaxType from './tax-type';
 import ReceiptInfo from './receipt-info';
 import Item from './item';
 import Amount from './amount';
+import utils from './common/utils';
 
 const defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
@@ -62,20 +63,10 @@ class Receipt {
         return winningNumbers.indexOf(this.info.number) !== -1;
     }
 
-    getChineseYear() {
-        return this.info.date.getFullYear() - 1911;
-    }
-
-    getWinningMonths() {
-        let month = this.info.date.getMonth() + 1;
-        return month % 2 === 0 ? [month - 1, month] : [month, month + 1];
-    }
-
     generateBarCodeString() {
         return (
-            this.getChineseYear().toString() +
-            this.getMonthsInterval()[1] +
-            this.getWinningMonths()[1] +
+            this.chineseYear +
+            utils.padZero(this.winningMonths[1], 2) +
             this.info.number +
             this.info.randomNumber
         );
@@ -97,6 +88,15 @@ class Receipt {
         return this.items.filter(item => {
             return item.taxType === TaxType.ZERO_TAX;
         });
+    }
+
+    get chineseYear() {
+        return this.info.date.getFullYear() - 1911;
+    }
+
+    get winningMonths() {
+        let month = this.info.date.getMonth() + 1;
+        return month % 2 === 0 ? [month - 1, month] : [month, month + 1];
     }
 }
 
