@@ -4,6 +4,7 @@ import ReceiptInfo from './receipt-info';
 import Item from './item';
 import Amount from './amount';
 import utils from './common/utils';
+import EncodeType from './encode-type';
 
 const defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
@@ -73,6 +74,53 @@ class Receipt {
         );
     }
 
+    generateRightQRCodeString() {
+        let qrcode = this.items.map((item, index) => {
+            let combineString = [];
+            combineString.push(index === 0 ? '**' : ':');
+            combineString.push(item.description.replace(':', '-'));
+            combineString.push(':' + item.quantity);
+            combineString.push(':' + item.unitPrice);
+            return combineString.join('');
+        });
+
+        return qrcode.join('');
+    }
+
+    generateLeftQRCodeString(
+        info = '**********',
+        encodeType = EncodeType.UTF8
+    ) {
+        let qrcode = [],
+            dateString =
+                this.chineseYear +
+                utils.padZero(this.info.date.getMonth() + 1, 2) +
+                utils.padZero(this.info.date.getDate(), 2),
+            salesAmountHex16 = utils.padZero(
+                this.amount.salesAmount.toString(16).toUpperCase(),
+                8
+            ),
+            totalAmountHex16 = utils.padZero(
+                this.amount.totalAmount.toString(16).toUpperCase(),
+                8
+            );
+
+        qrcode.push(this.info.number);
+        qrcode.push(dateString);
+        qrcode.push(this.info.randomNumber);
+        qrcode.push(salesAmountHex16);
+        qrcode.push(totalAmountHex16);
+        qrcode.push(this.info.buyer.id || '00000000');
+        qrcode.push(this.info.seller.id);
+        qrcode.push(this.info.number + this.info.randomNumber);
+        qrcode.push(':' + info);
+        qrcode.push(':' + this.items.length);
+        qrcode.push(':' + this.totalQuantity);
+        qrcode.push(':' + encodeType);
+
+        return qrcode.join('');
+    }
+
     get taxItems() {
         return this.items.filter(item => {
             return item.taxType === TaxType.TAX;
@@ -99,6 +147,12 @@ class Receipt {
         let month = this.info.date.getMonth() + 1;
         return month % 2 === 0 ? [month - 1, month] : [month, month + 1];
     }
+
+    get totalQuantity() {
+        return this.items.reduce((sum, item) => {
+            return sum + item.quantity;
+        }, 0);
+    }
 }
 
 export default {
@@ -106,5 +160,6 @@ export default {
     ReceiptInfo: ReceiptInfo,
     Item: Item,
     Amount: Amount,
-    TaxType: TaxType
+    TaxType: TaxType,
+    EncodeType: EncodeType
 };
