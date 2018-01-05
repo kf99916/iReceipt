@@ -137,6 +137,9 @@ Encode type for QR code enum.
 ## Author
 
 Zheng-Xiang Ke, kf99916@gmail.com  
+
+## Contributors
+
 Sin-Fong Lyu, kingispeak@gmail.com
 
 ## License
