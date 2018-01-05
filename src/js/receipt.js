@@ -5,6 +5,7 @@ import Item from './item';
 import Amount from './amount';
 import utils from './common/utils';
 import EncodeType from './encode-type';
+import ReceiptAES from './receipt-aes';
 
 const defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
@@ -88,9 +89,14 @@ class Receipt {
     }
 
     generateLeftQRCodeString(
-        info = '**********',
+        AESKey,
+        info = utils.repeat('*', 10),
         encodeType = EncodeType.UTF8
     ) {
+        if (!AESKey) {
+            throw new TypeError('AES Key is not found');
+        }
+
         let qrcode = [],
             dateString =
                 this.chineseYear +
@@ -103,16 +109,23 @@ class Receipt {
             totalAmountHex16 = utils.padZero(
                 this.amount.totalAmount.toString(16).toUpperCase(),
                 8
-            );
+            ),
+            plainText = this.info.number + this.info.randomNumber,
+            padding = 16 - plainText.length % 16;
+
+        plainText += utils.repeat(padding, padding);
+        encryptText = Buffer.from(
+            ReceiptAES.encrypt(AESKey, plainText)
+        ).toString('base64');
 
         qrcode.push(this.info.number);
         qrcode.push(dateString);
         qrcode.push(this.info.randomNumber);
         qrcode.push(salesAmountHex16);
         qrcode.push(totalAmountHex16);
-        qrcode.push(this.info.buyer.id || '00000000');
+        qrcode.push(this.info.buyer.id || utils.repeat('0', 8));
         qrcode.push(this.info.seller.id);
-        qrcode.push(this.info.number + this.info.randomNumber);
+        qrcode.push(encryptText);
         qrcode.push(':' + info);
         qrcode.push(':' + this.items.length);
         qrcode.push(':' + this.totalQuantity);
