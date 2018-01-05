@@ -1,6 +1,6 @@
 # iReceipt
 
-Generate Taiwan's electronic receipt including the layout, barcode, and XML for National Taxation Bureau. The spec. from National Taxation Bureau is very trivial but very complicated and hard to read. iReceipt can save your life and time!!!
+Generate Taiwan's electronic receipt including QR code, bar code, and XML for National Taxation Bureau. The spec. from National Taxation Bureau is trivial but very complicated and hard to read. iReceipt can save your life and time!!!
 
 [![npm](https://img.shields.io/npm/dt/ireceipt.svg)](https://www.npmjs.com/package/ireceipt)
 [![GitHub stars](https://img.shields.io/github/stars/kf99916/iReceipt.svg)](https://github.com/kf99916/iReceipt/stargazers)
@@ -27,17 +27,39 @@ const info = new IReceipt.ReceiptInfo(
         false
     ),
     items = [new IReceipt.Item('{{ITEM_DESCRIPTION}}', 3000, 1)],
-    receiptObject = new IReceipt.Receipt(info, items);
+    receipt = new IReceipt.Receipt(info, items);
 
-window.console.log(receiptObject.toXML());
+window.console.log(receipt.toXML());
 
 // Taiwan Receipt Lottery
 // The format of the list of winners:
 // 53925591  10510LC60123189...
 // 53925591  10510LC60122037...
 const winnersList = IReceipt.Receipt.parseWinnersList('{{WINNERS_LIST}}');
-window.console.log(receiptObject.isWinning(winnersList));
+window.console.log(receipt.isWinning(winnersList));
+
+// Bar code
+const barCode = receipt.generateBarCodeString();
+
+// QR code
+const leftQRCode = receipt.generateLeftQRCodeString();
+const rightQRCode = receipt.generateRightQRCodeString();
 ```
+
+### Receipt
+
+The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `Amount` based on items.
+
+`constructor(info, items)`
+
+`info` `ReceiptInfo`  
+`items` array of `Item`
+
+`generateBarCodeString()` generate bar code string.
+
+`generateLeftQRCodeString()` generate left QR code string including the receipt's information.
+
+`generateRightQRCodeString()` generate right QR code string including information for all items.
 
 ### ReceiptInfo
 
@@ -51,8 +73,8 @@ Store the receipt information.
 `buyer` buyer information, including id and name. (`{ id: '{{BUYER_ID}}', name: '{{BUYER_NAME}}' }`)  
 `type` receipt type (default `07`)  
 `carrier` receipt carrier information, including id and type. (`{id: '{{CARRIER_ID}}', type:'CARRIER_TYPE'}`)  
-`donationID` charity's love code (愛心碼)   
-`orderno` The order number
+`donationID` charity's love code (愛心碼)  
+`orderno` order number
 
 ### Item
 
@@ -63,8 +85,8 @@ The product item buyed by buyer.
 `description` product item's description  
 `unitPrice` unit price for a product item  
 `sequenceNumber` sequence number  
-`quantity` quantity of product items (default `1`)   
-`taxType` The tax type (default `TaxType.TAX`)
+`quantity` quantity of product items (default `1`)  
+`taxType` tax type (default `TaxType.TAX`)
 
 ### Amount
 
@@ -72,9 +94,9 @@ Store the amount information.
 
 `constructor(taxItems, freeTaxItems, zeroTaxItems)`
 
-`taxItems` The tax items  
-`freeTaxItems` The free tax items  
-`zeroTaxItems` The zero tax items
+`taxItems` tax items  
+`freeTaxItems` free tax items  
+`zeroTaxItems` zero tax items
 
 ### TaxType
 
@@ -90,11 +112,17 @@ Tax type enum.
 }
 ```
 
-### Receipt
+### EncodeType
 
-The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `Amount` based on items.
+Encode type for QR code enum.
 
-`constructor(info, items)`
+```js
+{
+    BIG5: 0,
+    UTF8: 1,
+    BASE64: 3
+}
+```
 
 #### Member Methods
 
@@ -108,7 +136,7 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `A
 
 ## Author
 
-Zheng-Xiang Ke, kf99916@gmail.com   
+Zheng-Xiang Ke, kf99916@gmail.com  
 Sin-Fong Lyu, kingispeak@gmail.com
 
 ## License
