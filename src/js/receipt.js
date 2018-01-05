@@ -5,7 +5,7 @@ import Item from './item';
 import Amount from './amount';
 import utils from './common/utils';
 import EncodeType from './encode-type';
-import aes from './receipt-aes';
+import aes from './aes';
 
 const defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
