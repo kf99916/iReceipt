@@ -114,7 +114,8 @@ class Receipt {
             padding = 16 - plainText.length % 16;
 
         plainText += utils.repeat(padding, padding);
-        encryptText = Buffer.from(
+
+        const encryptText = Buffer.from(
             ReceiptAES.encrypt(AESKey, plainText)
         ).toString('base64');
 
