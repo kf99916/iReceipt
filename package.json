@@ -25,7 +25,22 @@
         "taxation",
         "bureau"
     ],
-    "author": "Zheng-Xiang Ke and Sin-Fong Lyu",
+    "author": {
+        "name": "Zheng-Xiang Ke",
+        "email": "kf99916@gmail.com",
+        "url": "https://medium.com/@kf99916"
+    },
+    "contributors": [
+        {
+            "name": "Zheng-Xiang Ke",
+            "email": "kf99916@gmail.com",
+            "url": "https://medium.com/@kf99916"
+        },
+        {
+            "name": "Sin-Fong Lyu",
+            "email": "kingispeak@gmail.com"
+        }
+    ],
     "license": "MIT",
     "engineStrict": true,
     "engines": {
