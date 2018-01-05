@@ -5,7 +5,7 @@ import Item from './item';
 import Amount from './amount';
 import utils from './common/utils';
 import EncodeType from './encode-type';
-import ReceiptAES from './receipt-aes';
+import aes from './receipt-aes';
 
 const defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
@@ -116,7 +116,7 @@ class Receipt {
         plainText += utils.repeat(padding, padding);
 
         const encryptText = Buffer.from(
-            ReceiptAES.encrypt(AESKey, plainText)
+            aes.encrypt(AESKey, plainText)
         ).toString('base64');
 
         qrcode.push(this.info.number);
