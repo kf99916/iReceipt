@@ -44,19 +44,22 @@ var createClass = function () {
 }();
 
 var ReceiptInfo = function () {
-    function ReceiptInfo(number, date, seller, buyer, type, carrier, donationID, orderno) {
+    function ReceiptInfo(number, date, seller, buyer) {
+        var type = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '07';
+        var carrier = arguments[5];
+        var donationID = arguments[6];
+        var orderno = arguments[7];
         classCallCheck(this, ReceiptInfo);
 
         this.number = number;
         this.date = date;
         this.seller = seller;
         this.buyer = buyer;
-        this.buyer.id = this.buyer.id || '0000000000';
-        this.type = type || '07';
+        this.type = type;
         this.carrier = carrier;
         this.donationID = donationID;
-        this.randomNumber = Math.floor(1000 + Math.random() * 9000);
         this.orderno = orderno;
+        this.randomNumber = Math.floor(1000 + Math.random() * 9000);
     }
 
     createClass(ReceiptInfo, [{
@@ -71,7 +74,7 @@ var ReceiptInfo = function () {
                     Name: this.seller.name
                 },
                 Buyer: {
-                    Identifier: this.buyer.id,
+                    Identifier: this.buyer.id || '0000000000',
                     Name: this.buyer.name
                 },
                 InvoiceType: this.type,
@@ -98,14 +101,16 @@ var ReceiptInfo = function () {
 }();
 
 var Item = function () {
-    function Item(description, unitPrice, sequenceNumber, quantity, taxType) {
+    function Item(description, unitPrice, sequenceNumber) {
+        var quantity = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+        var taxType = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : TaxType.TAX;
         classCallCheck(this, Item);
 
         this.description = description;
         this.unitPrice = parseInt(unitPrice);
         this.sequenceNumber = sequenceNumber;
-        this.quantity = parseInt(quantity) || 1;
-        this.taxType = taxType || TaxType.TAX;
+        this.quantity = parseInt(quantity);
+        this.taxType = taxType;
     }
 
     createClass(Item, [{
@@ -181,6 +186,18 @@ var Amount = function () {
     return Amount;
 }();
 
+var utils = {
+    padZero: function padZero(number, size) {
+        return ('000000000' + number).substr(-size);
+    }
+};
+
+var EncodeType = {
+    BIG5: 0,
+    UTF8: 1,
+    BASE64: 3
+};
+
 var defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
     'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
@@ -206,6 +223,7 @@ var Receipt = function () {
         this.amount = new Amount(this.taxItems, this.freeTaxItems, this.zeroTaxItems);
     }
 
+    // Static Methods
     // The format of the list of winners:
     // 53925591  10510LC60123189...
     // 53925591  10510LC60122037...
@@ -216,7 +234,8 @@ var Receipt = function () {
         key: 'toXML',
 
 
-        // https://asana-user-private-us-east-1.s3.amazonaws.com/assets/1470352313817/469050158764958/0d7d7e6067a5c9d773b7578f68c1e6b6?AWSAccessKeyId=ASIAJYTZ4QJBKU575X7A&Expires=1512619611&Signature=S88aqo8KUTsZIarz6IU0N1Q9x3g%3D&x-amz-security-token=FQoDYXdzEIX%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDH6gsGTBYtjGkHdQOiK3A9VasWE04WPY29Z46M12cLuySvyX3MqoiAwQe4T4sSxH%2BCDfLhKhTz2N7MEgkCINQ1JHV5ib0TQ3tWfNpffOnKQquhS9vBnYceVgU%2FoMEU8ASPvWyRC%2FBbPzDiNdxbgGB1TqroJuWKb6iZT%2FmfX3TDwAls5%2BKmPA5PtJYr9A6KjV18PdIDiz6X%2FIET2yn%2FZMyjbzEqvLN3HCJWfgQLCBWxT6C3yk%2FBXWynBVQhwgZPhUtzL57hfaW77mkK3iMdFIqFciLmp3suOh8F2D4KCLu2lXJ69W2W57wZtWHr2qzkC9pFG3tMXBzL3tvys%2FN1LIKH7R8RHvB6ugeYfqnyMBLIbWKhpJYUiaXcTennivjYVkUAIGXPsIBYssu8tF0%2BKs0baWnwxwLLfY19HpFG%2FfA8IdH6WUZLTkqfT8DJ%2B29I6Pl0J3NE1Mm7cB6G2Dk%2BJ5%2Bdh7rIlYhGlXNTHjSxJjt%2FmrCXLPnQgfxazk%2Fxp6LFUchdgVANLVLuI1CYy4V%2BKDWXEHXoVGExsr2Oby61ws6nyhk9S9GLE6uxu5wE%2F3xVcQEqUBZ5ad6sJwnDdwXOMFA2Yja1Hao2co6eei0QU%3D#_=_
+        // Methods
+        // Reference: https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1447235507091_0.zip
         value: function toXML() {
             var receiptObject = {
                 $: defaultInvoiceAttr,
@@ -237,24 +256,62 @@ var Receipt = function () {
         value: function isWinning(winningNumbers) {
             return winningNumbers.indexOf(this.info.number) !== -1;
         }
-    }, {
-        key: 'getChineseYear',
-        value: function getChineseYear() {
-            return this.info.date.getFullYear() - 1911;
-        }
-    }, {
-        key: 'getWinningMonths',
-        value: function getWinningMonths() {
-            var month = this.info.date.getMonth() + 1;
-            return month % 2 === 0 ? [month - 1, month] : [month, month + 1];
-        }
+
+        // Reference: https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1479449792874_0.6(20161115).pdf
+
     }, {
         key: 'generateBarCodeString',
         value: function generateBarCodeString() {
-            return this.getChineseYear().toString() + this.getMonthsInterval()[1] + this.getWinningMonths()[1] + this.info.number + this.info.randomNumber;
+            return this.chineseYear + utils.padZero(this.winningMonths[1], 2) + this.info.number + this.info.randomNumber;
+        }
+
+        // Reference: https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1479449792874_0.6(20161115).pdf
+
+    }, {
+        key: 'generateRightQRCodeString',
+        value: function generateRightQRCodeString() {
+            var qrcode = this.items.map(function (item, index) {
+                var combineString = [];
+                combineString.push(index === 0 ? '**' : ':');
+                combineString.push(item.description.replace(':', '-'));
+                combineString.push(':' + item.quantity);
+                combineString.push(':' + item.unitPrice);
+                return combineString.join('');
+            });
+
+            return qrcode.join('');
+        }
+    }, {
+        key: 'generateLeftQRCodeString',
+        value: function generateLeftQRCodeString() {
+            var info = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '**********';
+            var encodeType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : EncodeType.UTF8;
+
+            var qrcode = [],
+                dateString = this.chineseYear + utils.padZero(this.info.date.getMonth() + 1, 2) + utils.padZero(this.info.date.getDate(), 2),
+                salesAmountHex16 = utils.padZero(this.amount.salesAmount.toString(16).toUpperCase(), 8),
+                totalAmountHex16 = utils.padZero(this.amount.totalAmount.toString(16).toUpperCase(), 8);
+
+            qrcode.push(this.info.number);
+            qrcode.push(dateString);
+            qrcode.push(this.info.randomNumber);
+            qrcode.push(salesAmountHex16);
+            qrcode.push(totalAmountHex16);
+            qrcode.push(this.info.buyer.id || '00000000');
+            qrcode.push(this.info.seller.id);
+            qrcode.push(this.info.number + this.info.randomNumber);
+            qrcode.push(':' + info);
+            qrcode.push(':' + this.items.length);
+            qrcode.push(':' + this.totalQuantity);
+            qrcode.push(':' + encodeType);
+
+            return qrcode.join('');
         }
     }, {
         key: 'taxItems',
+
+
+        // Getters
         get: function get$$1() {
             return this.items.filter(function (item) {
                 return item.taxType === TaxType.TAX;
@@ -274,6 +331,24 @@ var Receipt = function () {
                 return item.taxType === TaxType.ZERO_TAX;
             });
         }
+    }, {
+        key: 'chineseYear',
+        get: function get$$1() {
+            return this.info.date.getFullYear() - 1911;
+        }
+    }, {
+        key: 'winningMonths',
+        get: function get$$1() {
+            var month = this.info.date.getMonth() + 1;
+            return month % 2 === 0 ? [month - 1, month] : [month, month + 1];
+        }
+    }, {
+        key: 'totalQuantity',
+        get: function get$$1() {
+            return this.items.reduce(function (sum, item) {
+                return sum + item.quantity;
+            }, 0);
+        }
     }], [{
         key: 'parseWinnersList',
         value: function parseWinnersList(winnersList) {
@@ -290,7 +365,8 @@ var receipt = {
     ReceiptInfo: ReceiptInfo,
     Item: Item,
     Amount: Amount,
-    TaxType: TaxType
+    TaxType: TaxType,
+    EncodeType: EncodeType
 };
 
 return receipt;

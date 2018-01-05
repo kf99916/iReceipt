@@ -1,7 +1,7 @@
 {
     "name": "ireceipt",
-    "version": "0.3.1",
-    "description": "Generate Taiwan's electronic receipt including the layout and XML for National Taxation Bureau",
+    "version": "0.4.0",
+    "description": "Generate Taiwan's electronic receipt including QR code, bar code, and XML for National Taxation Bureau",
     "main": "dist/js/ireceipt.min.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -27,6 +27,10 @@
     ],
     "author": "Zheng-Xiang Ke and Sin-Fong Lyu",
     "license": "MIT",
+    "engineStrict": true,
+    "engines": {
+        "node": ">= 5.10.0"
+    },
     "bugs": {
         "url": "https://github.com/kf99916/iReceipt/issues"
     },
