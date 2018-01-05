@@ -1,12 +1,18 @@
 import TaxType from './tax-type';
 
 class Item {
-    constructor(description, unitPrice, sequenceNumber, quantity, taxType) {
+    constructor(
+        description,
+        unitPrice,
+        sequenceNumber,
+        quantity = 1,
+        taxType = TaxType.TAX
+    ) {
         this.description = description;
         this.unitPrice = parseInt(unitPrice);
         this.sequenceNumber = sequenceNumber;
-        this.quantity = parseInt(quantity) || 1;
-        this.taxType = taxType || TaxType.TAX;
+        this.quantity = parseInt(quantity);
+        this.taxType = taxType;
     }
 
     toXMLObject() {

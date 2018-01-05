@@ -6,7 +6,7 @@ class ReceiptInfo {
         date,
         seller,
         buyer,
-        type,
+        type = '07',
         carrier,
         donationID,
         orderno
@@ -15,11 +15,11 @@ class ReceiptInfo {
         this.date = date;
         this.seller = seller;
         this.buyer = buyer;
-        this.type = type || '07';
+        this.type = type;
         this.carrier = carrier;
         this.donationID = donationID;
-        this.randomNumber = Math.floor(1000 + Math.random() * 9000);
         this.orderno = orderno;
+        this.randomNumber = Math.floor(1000 + Math.random() * 9000);
     }
 
     toXMLObject() {
