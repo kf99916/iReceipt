@@ -55,10 +55,11 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `A
 `info` `ReceiptInfo`  
 `items` array of `Item`
 
-`generateBarCodeString()` generate bar code string.
+#### Member Methods
 
-`generateLeftQRCodeString()` generate left QR code string including the receipt's information.
-
+`toXML()` Receipt object to xml string.   
+`generateBarCodeString()` generate bar code string.   
+`generateLeftQRCodeString()` generate left QR code string including the receipt's information.   
 `generateRightQRCodeString()` generate right QR code string including information for all items.
 
 ### ReceiptInfo
@@ -123,10 +124,6 @@ Encode type for QR code enum.
     BASE64: 3
 }
 ```
-
-#### Member Methods
-
-`toXML()` Receipt object to xml string.
 
 ## Reference
 
