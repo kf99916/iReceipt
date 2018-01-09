@@ -6,6 +6,7 @@ import Amount from './amount';
 import utils from './common/utils';
 import EncodeType from './encode-type';
 import aes from './aes';
+import JsBarcode from 'jsbarcode';
 
 const defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
@@ -133,6 +134,21 @@ class Receipt {
         qrcode.push(':' + encodeType);
 
         return qrcode.join('');
+    }
+
+    renderBarCode() {
+        const svgObject = document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'svg'
+            ),
+            xmlSerializer = new XMLSerializer();
+
+        JsBarcode(svgObject, this.generateBarCodeString(), {
+            format: 'CODE39',
+            displayValue: false
+        });
+
+        return xmlSerializer.serializeToString(svgObject);
     }
 
     get taxItems() {
