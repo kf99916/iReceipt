@@ -37,6 +37,7 @@ class Receipt {
         );
     }
 
+    // Static Methods
     // The format of the list of winners:
     // 53925591  10510LC60123189...
     // 53925591  10510LC60122037...
@@ -47,6 +48,41 @@ class Receipt {
         });
     }
 
+    // Getters
+    get taxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.TAX;
+        });
+    }
+
+    get freeTaxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.FREE_TAX;
+        });
+    }
+
+    get zeroTaxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.ZERO_TAX;
+        });
+    }
+
+    get chineseYear() {
+        return this.info.date.getFullYear() - 1911;
+    }
+
+    get winningMonths() {
+        let month = this.info.date.getMonth() + 1;
+        return month % 2 === 0 ? [month - 1, month] : [month, month + 1];
+    }
+
+    get totalQuantity() {
+        return this.items.reduce((sum, item) => {
+            return sum + item.quantity;
+        }, 0);
+    }
+
+    // Methods
     // Reference: https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1447235507091_0.zip
     toXML() {
         let receiptObject = {
@@ -78,6 +114,7 @@ class Receipt {
         );
     }
 
+    // Reference: https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1479449792874_0.6(20161115).pdf
     generateRightQRCodeString() {
         let qrcode = this.items.map((item, index) => {
             let combineString = [];
@@ -164,6 +201,7 @@ class Receipt {
         return this[renderQRcode](this.generateLeftQRCodeString(AESKey));
     }
 
+    // Private Methods
     [renderQRcode](text) {
         return new Promise((resolve, reject) => {
             const opts = {
