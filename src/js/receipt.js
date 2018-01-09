@@ -150,7 +150,7 @@ class Receipt {
             displayValue: false
         });
 
-        return xmlSerializer.serializeToString(svgObject);
+        return Promise.resolve(xmlSerializer.serializeToString(svgObject));
     }
 
     renderRightQRCode() {
