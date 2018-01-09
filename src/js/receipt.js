@@ -7,6 +7,7 @@ import utils from './common/utils';
 import EncodeType from './encode-type';
 import aes from './aes';
 import JsBarcode from 'jsbarcode';
+import QRCode from 'qrcode';
 
 const defaultInvoiceAttr = {
     xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
@@ -149,6 +150,50 @@ class Receipt {
         });
 
         return xmlSerializer.serializeToString(svgObject);
+    }
+
+    renderRightQRCode() {
+        return new Promise((resolve, reject) => {
+            const opts = {
+                errorCorrectionLevel: 'L',
+                version: 6
+            };
+
+            QRCode.toString(
+                this.generateRightQRCodeString(),
+                opts,
+                (err, svgString) => {
+                    if (err) {
+                        reject(error);
+                    }
+                    resolve(svgString);
+                }
+            );
+        });
+    }
+
+    renderLeftQRCode(AESKey) {
+        if (!AESKey) {
+            throw new TypeError('AES Key is not found');
+        }
+
+        return new Promise((resolve, reject) => {
+            const opts = {
+                errorCorrectionLevel: 'L',
+                version: 6
+            };
+
+            QRCode.toString(
+                this.generateLeftQRCodeString(AESKey),
+                opts,
+                (err, svgString) => {
+                    if (err) {
+                        reject(error);
+                    }
+                    resolve(svgString);
+                }
+            );
+        });
     }
 
     get taxItems() {
