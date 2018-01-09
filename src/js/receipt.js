@@ -10,10 +10,11 @@ import JsBarcode from 'jsbarcode';
 import QRCode from 'qrcode';
 
 const defaultInvoiceAttr = {
-    xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
-    'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-    'xsi:schemaLocation': 'urn:GEINV:eInvoiceMessage:C0401:3.1 C0401.xsd'
-};
+        xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
+        'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        'xsi:schemaLocation': 'urn:GEINV:eInvoiceMessage:C0401:3.1 C0401.xsd'
+    },
+    renderQRcode = Symbol('renderQRcode');
 
 class Receipt {
     constructor(info, items) {
@@ -153,46 +154,29 @@ class Receipt {
     }
 
     renderRightQRCode() {
-        return new Promise((resolve, reject) => {
-            const opts = {
-                errorCorrectionLevel: 'L',
-                version: 6
-            };
-
-            QRCode.toString(
-                this.generateRightQRCodeString(),
-                opts,
-                (err, svgString) => {
-                    if (err) {
-                        reject(error);
-                    }
-                    resolve(svgString);
-                }
-            );
-        });
+        return this[renderQRcode](this.generateRightQRCodeString());
     }
 
     renderLeftQRCode(AESKey) {
         if (!AESKey) {
             throw new TypeError('AES Key is not found');
         }
+        return this[renderQRcode](this.generateLeftQRCodeString(AESKey));
+    }
 
+    [renderQRcode](text) {
         return new Promise((resolve, reject) => {
             const opts = {
                 errorCorrectionLevel: 'L',
                 version: 6
             };
 
-            QRCode.toString(
-                this.generateLeftQRCodeString(AESKey),
-                opts,
-                (err, svgString) => {
-                    if (err) {
-                        reject(error);
-                    }
-                    resolve(svgString);
+            QRCode.toString(text, opts, (err, string) => {
+                if (err) {
+                    reject(error);
                 }
-            );
+                resolve(string);
+            });
         });
     }
 
