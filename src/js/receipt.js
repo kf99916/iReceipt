@@ -6,12 +6,28 @@ import Amount from './amount';
 import utils from './common/utils';
 import EncodeType from './encode-type';
 import aes from './aes';
+import JsBarcode from 'jsbarcode';
+import QRCode from 'qrcode';
 
 const defaultInvoiceAttr = {
-    xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
-    'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-    'xsi:schemaLocation': 'urn:GEINV:eInvoiceMessage:C0401:3.1 C0401.xsd'
-};
+        xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
+        'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        'xsi:schemaLocation': 'urn:GEINV:eInvoiceMessage:C0401:3.1 C0401.xsd'
+    },
+    renderQRcode = function(text) {
+        return new Promise((resolve, reject) => {
+            const opts = {
+                errorCorrectionLevel: 'L',
+                version: 6
+            };
+            QRCode.toString(text, opts, (err, string) => {
+                if (err) {
+                    reject(error);
+                }
+                resolve(string);
+            });
+        });
+    };
 
 class Receipt {
     constructor(info, items) {
@@ -170,6 +186,65 @@ class Receipt {
         qrcode.push(':' + encodeType);
 
         return qrcode.join('');
+    }
+
+    renderBarCode() {
+        const svgObject = document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'svg'
+            ),
+            xmlSerializer = new XMLSerializer();
+
+        JsBarcode(svgObject, this.generateBarCodeString(), {
+            format: 'CODE39',
+            displayValue: false
+        });
+
+        return Promise.resolve(xmlSerializer.serializeToString(svgObject));
+    }
+
+    renderRightQRCode() {
+        return renderQRcode(this.generateRightQRCodeString());
+    }
+
+    renderLeftQRCode(AESKey) {
+        if (!AESKey) {
+            throw new TypeError('AES Key is not found');
+        }
+        return renderQRcode(this.generateLeftQRCodeString(AESKey));
+    }
+
+    get taxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.TAX;
+        });
+    }
+
+    get freeTaxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.FREE_TAX;
+        });
+    }
+
+    get zeroTaxItems() {
+        return this.items.filter(item => {
+            return item.taxType === TaxType.ZERO_TAX;
+        });
+    }
+
+    get chineseYear() {
+        return this.info.date.getFullYear() - 1911;
+    }
+
+    get winningMonths() {
+        let month = this.info.date.getMonth() + 1;
+        return month % 2 === 0 ? [month - 1, month] : [month, month + 1];
+    }
+
+    get totalQuantity() {
+        return this.items.reduce((sum, item) => {
+            return sum + item.quantity;
+        }, 0);
     }
 }
 
