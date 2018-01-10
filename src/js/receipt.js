@@ -8,6 +8,8 @@ import EncodeType from './encode-type';
 import aes from './aes';
 import JsBarcode from 'jsbarcode';
 import QRCode from 'qrcode';
+import { format } from 'date-fns/esm';
+import template from '../template/ireceipt.html';
 
 const defaultInvoiceAttr = {
         xmlns: 'urn:GEINV:eInvoiceMessage:C0401:3.1',
@@ -188,6 +190,63 @@ class Receipt {
         return qrcode.join('');
     }
 
+    render(AESKey) {
+        if (!AESKey) {
+            throw new TypeError('AES Key is not found');
+        }
+
+        const promises = [
+                this.renderBarCode(),
+                this.renderLeftQRCode(AESKey),
+                this.renderRightQRCode()
+            ],
+            intlNumberFormat = new Intl.NumberFormat();
+
+        return Promise.all(promises).then(
+            ([barCode, leftQRCode, rightQRCode]) => {
+                const buyerIdHtmlString = this.info.buyer.id
+                    ? `<div class="buyer-identifier">
+                        買方${this.info.buyer.id}
+                      </div>`
+                    : '';
+
+                return `${template}
+                    <div class="receipt">
+                        <div class="einvoice-name">
+                            ${this.info.seller.name}
+                        </div>
+                        <div class="receipt-title">電子發票證明聯</div>
+                        <div class="receipt-year-month">
+                            ${this.chineseYear}年
+                            ${this.winningMonths[0]}-${this.winningMonths[1]}月 
+                        </div>
+                        <div class="receipt-invoice-number">
+                            ${this.info.number}
+                        </div>
+                        <div class="receipt-issue-time">
+                            ${format(this.info.date, 'YYYY-MM-DD hh:mm:ss')}
+                        </div>
+                        <div class="receipt-random-number">
+                            隨機碼 ${this.info.randomNumber}
+                        </div>
+                        <div class="receipt-amount">
+                            總計 ${intlNumberFormat.format(
+                                this.amount.totalAmount
+                            )}
+                        </div>
+                        <div class="einvoice-identifier">
+                            賣方${this.info.seller.id}
+                        </div>
+                        ${buyerIdHtmlString}
+                        <div class="einvoice-barcode">${barCode}</div>
+                        <div class="einvoice-qrcode-left">${leftQRCode}</div>
+                        <div class="einvoice-qrcode-right">${rightQRCode}</div>
+                        <div class="einvoice-remark">退貨憑電子發票證明聯正本辦理</div>
+                    </div>`;
+            }
+        );
+    }
+
     renderBarCode() {
         const svgObject = document.createElementNS(
                 'http://www.w3.org/2000/svg',
@@ -197,7 +256,9 @@ class Receipt {
 
         JsBarcode(svgObject, this.generateBarCodeString(), {
             format: 'CODE39',
-            displayValue: false
+            displayValue: false,
+            width: 0.6,
+            height: 25
         });
 
         return Promise.resolve(xmlSerializer.serializeToString(svgObject));

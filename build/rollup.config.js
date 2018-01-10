@@ -1,17 +1,19 @@
 import pkg from '../package.json';
 import minify from 'rollup-plugin-babel-minify';
 import babel from 'rollup-plugin-babel';
+import html from 'rollup-plugin-html';
 
 const year = new Date().getFullYear();
 let filename = 'ireceipt.js',
     plugins = [
+        html(),
         babel({
             exclude: 'node_modules/**'
         })
     ];
 if (process.env.NODE_ENV === 'production') {
     filename = 'ireceipt.min.js';
-    plugins = [minify()];
+    plugins = [html(), minify()];
 }
 
 export default {
