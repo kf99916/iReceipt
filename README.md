@@ -29,6 +29,18 @@ const info = new IReceipt.ReceiptInfo(
     items = [new IReceipt.Item('{{ITEM_DESCRIPTION}}', 3000, 1)],
     receipt = new IReceipt.Receipt(info, items);
 
+// Render
+receipt
+    .render()
+    .then(htmlString => {
+        const win = window.open();
+        win.document.body.innerHTML = htmlString;
+    })
+    .catch(err => {
+        window.console.error('err', err);
+    });
+
+// toXmL
 window.console.log(receipt.toXML());
 
 // Taiwan Receipt Lottery
@@ -37,13 +49,6 @@ window.console.log(receipt.toXML());
 // 53925591  10510LC60122037...
 const winnersList = IReceipt.Receipt.parseWinnersList('{{WINNERS_LIST}}');
 window.console.log(receipt.isWinning(winnersList));
-
-// Bar code
-const barCode = receipt.generateBarCodeString();
-
-// QR code
-const leftQRCode = receipt.generateLeftQRCodeString();
-const rightQRCode = receipt.generateRightQRCodeString();
 ```
 
 ### Receipt
@@ -57,10 +62,14 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `A
 
 #### Member Methods
 
-`toXML()` Receipt object to xml string.   
-`generateBarCodeString()` generate bar code string.   
-`generateLeftQRCodeString()` generate left QR code string including the receipt's information.   
+`toXML()` Receipt object to xml string.  
+`generateBarCodeString()` generate bar code string.  
+`generateLeftQRCodeString()` generate left QR code string including the receipt's information.
 `generateRightQRCodeString()` generate right QR code string including information for all items.
+`renderRightQRCode()` generate right QR code svg string. return `Promise`.
+`renderLeftQRCode(AESKey)` generate left QR code svg string. return `Promise`.
+`renderBarCode()`generate bar code svg string. return `Promise`.
+`render()` render Taiwan's electronic receipt. return `Promise`.
 
 ### ReceiptInfo
 
@@ -133,7 +142,7 @@ Encode type for QR code enum.
 
 ## Author
 
-Zheng-Xiang Ke, kf99916@gmail.com  
+Zheng-Xiang Ke, kf99916@gmail.com
 
 ## Contributors
 

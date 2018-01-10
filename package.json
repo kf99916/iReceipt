@@ -7,11 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "run-p build:*",
         "build:js": "node_modules/.bin/rollup --environment NODE_ENV:production --config build/rollup.config.js --sourcemap",
-        "build:css": "run-s css:*",
         "dev": "run-p dev:*",
-        "dev:js": "node_modules/.bin/rollup --environment NODE_ENV:develop --config build/rollup.config.js --sourcemap --watch",
-        "css:compile": "node_modules/.bin/node-sass --output-style expanded --source-map true --source-map-contents true --output dist/css src/scss",
-        "css:minify": "node_modules/.bin/cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/ireceipt.min.css src/scss/ireceipt.scss"
+        "dev:js": "node_modules/.bin/rollup --environment NODE_ENV:develop --config build/rollup.config.js --sourcemap --watch"
     },
     "repository": {
         "type": "git",
@@ -56,8 +53,6 @@
     "devDependencies": {
         "babel-plugin-external-helpers": "~6.22",
         "babel-preset-env": "~1.6",
-        "clean-css-cli": "~4.1",
-        "node-sass": "~4.7",
         "npm-run-all": "~4.1",
         "rollup": "~0.53",
         "rollup-plugin-babel": "~3.0",
