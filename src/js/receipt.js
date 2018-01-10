@@ -14,7 +14,20 @@ const defaultInvoiceAttr = {
         'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
         'xsi:schemaLocation': 'urn:GEINV:eInvoiceMessage:C0401:3.1 C0401.xsd'
     },
-    renderQRcode = Symbol('renderQRcode');
+    renderQRcode = function(text) {
+        return new Promise((resolve, reject) => {
+            const opts = {
+                errorCorrectionLevel: 'L',
+                version: 6
+            };
+            QRCode.toString(text, opts, (err, string) => {
+                if (err) {
+                    reject(error);
+                }
+                resolve(string);
+            });
+        });
+    };
 
 class Receipt {
     constructor(info, items) {
@@ -191,31 +204,14 @@ class Receipt {
     }
 
     renderRightQRCode() {
-        return this[renderQRcode](this.generateRightQRCodeString());
+        return renderQRcode(this.generateRightQRCodeString());
     }
 
     renderLeftQRCode(AESKey) {
         if (!AESKey) {
             throw new TypeError('AES Key is not found');
         }
-        return this[renderQRcode](this.generateLeftQRCodeString(AESKey));
-    }
-
-    // Private Methods
-    [renderQRcode](text) {
-        return new Promise((resolve, reject) => {
-            const opts = {
-                errorCorrectionLevel: 'L',
-                version: 6
-            };
-
-            QRCode.toString(text, opts, (err, string) => {
-                if (err) {
-                    reject(error);
-                }
-                resolve(string);
-            });
-        });
+        return renderQRcode(this.generateLeftQRCodeString(AESKey));
     }
 
     get taxItems() {
