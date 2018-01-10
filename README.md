@@ -65,10 +65,10 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `A
 `toXML()` Receipt object to xml string.  
 `generateBarCodeString()` generate bar code string.  
 `generateLeftQRCodeString()` generate left QR code string including the receipt's information.
-`generateRightQRCodeString()` generate right QR code string including information for all items.
-`renderRightQRCode()` generate right QR code svg string. return `Promise`.
-`renderLeftQRCode(AESKey)` generate left QR code svg string. return `Promise`.
-`renderBarCode()`generate bar code svg string. return `Promise`.
+`generateRightQRCodeString()` generate right QR code string including information for all items.   
+`renderRightQRCode()` generate right QR code svg string. return `Promise`.   
+`renderLeftQRCode(AESKey)` generate left QR code svg string. return `Promise`.   
+`renderBarCode()`generate bar code svg string. return `Promise`.   
 `render()` render Taiwan's electronic receipt. return `Promise`.
 
 ### ReceiptInfo
