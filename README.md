@@ -8,6 +8,10 @@ Generate Taiwan's electronic receipt including QR code, bar code, and XML for Na
 [![npm](https://img.shields.io/npm/v/ireceipt.svg)](https://www.npmjs.com/package/ireceipt)
 [![GitHub license](https://img.shields.io/github/license/kf99916/iReceipt.svg)](https://github.com/kf99916/iReceipt/blob/master/LICENSE)
 
+<p align="center">
+    <img src="https://github.com/kf99916/iReceipt/master/screenshots/ireceipt.png?raw=true" alt="iReceipt">
+</p>
+
 ## Installation
 
 ```bash
