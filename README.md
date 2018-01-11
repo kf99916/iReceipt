@@ -27,11 +27,11 @@ const info = new IReceipt.ReceiptInfo(
         false
     ),
     items = [new IReceipt.Item('{{ITEM_DESCRIPTION}}', 3000, 1)],
-    receipt = new IReceipt.Receipt(info, items);
+    receipt = new IReceipt.Receipt(info, items),
+    AESKey = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-// Render
 receipt
-    .render()
+    .render(AESKey)
     .then(htmlString => {
         const win = window.open();
         win.document.body.innerHTML = htmlString;
@@ -65,11 +65,11 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `A
 `toXML()` Receipt object to xml string.  
 `generateBarCodeString()` generate bar code string.  
 `generateLeftQRCodeString()` generate left QR code string including the receipt's information.
-`generateRightQRCodeString()` generate right QR code string including information for all items.   
-`renderRightQRCode()` generate right QR code svg string. return `Promise`.   
-`renderLeftQRCode(AESKey)` generate left QR code svg string. return `Promise`.   
-`renderBarCode()`generate bar code svg string. return `Promise`.   
-`render()` render Taiwan's electronic receipt. return `Promise`.
+`generateRightQRCodeString()` generate right QR code string including information for all items.  
+`renderRightQRCode()` generate right QR code svg string. return `Promise`.  
+`renderLeftQRCode(AESKey)` generate left QR code svg string. AESKey is required and return `Promise`.  
+`renderBarCode()`generate bar code svg string. return `Promise`.  
+`render(AESKey)` render Taiwan's electronic receipt. AESKey is required and return `Promise`.
 
 ### ReceiptInfo
 
