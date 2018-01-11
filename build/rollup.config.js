@@ -25,6 +25,13 @@ export default {
     plugins: plugins,
     name: 'IReceipt',
     external: Object.keys(pkg.dependencies),
+    globals: {
+        xml2js: 'xml2js',
+        'date-fns/esm': 'esm',
+        'aes-js': 'aesjs',
+        jsbarcode: 'JsBarcode',
+        qrcode: 'QRCode'
+    },
     banner: `/*!
     * iReceipt v${pkg.version} (${pkg.homepage})
     * Copyright ${year} ${pkg.author}

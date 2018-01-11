@@ -1,5 +1,5 @@
 /*!
-    * iReceipt v0.4.0 (https://github.com/kf99916/iReceipt)
+    * iReceipt v1.0.0 (https://github.com/kf99916/iReceipt)
     * Copyright 2018 [object Object]
     * Licensed under MIT (https://github.com/kf99916/iReceipt/blob/master/LICENSE)
     */
