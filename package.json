@@ -1,17 +1,14 @@
 {
     "name": "ireceipt",
-    "version": "1.0.0",
-    "description":
-        "Generate Taiwan's electronic receipt including QR code, bar code, and XML for National Taxation Bureau",
+    "version": "1.0.1",
+    "description": "Generate Taiwan's electronic receipt including QR code, bar code, and XML for National Taxation Bureau",
     "main": "dist/js/ireceipt.min.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "run-p build:*",
-        "build:js":
-            "node_modules/.bin/rollup --environment NODE_ENV:production --config build/rollup.config.js --sourcemap",
+        "build:js": "node_modules/.bin/rollup --environment NODE_ENV:production --config build/rollup.config.js --sourcemap",
         "dev": "run-p dev:*",
-        "dev:js":
-            "node_modules/.bin/rollup --environment NODE_ENV:develop --config build/rollup.config.js --sourcemap --watch"
+        "dev:js": "node_modules/.bin/rollup --environment NODE_ENV:develop --config build/rollup.config.js --sourcemap --watch"
     },
     "repository": {
         "type": "git",
@@ -50,7 +47,9 @@
         "url": "https://github.com/kf99916/iReceipt/issues"
     },
     "homepage": "https://github.com/kf99916/iReceipt",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "devDependencies": {
         "babel-plugin-external-helpers": "~6.22",
         "babel-preset-env": "~1.6",
