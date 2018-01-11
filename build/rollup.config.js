@@ -23,10 +23,10 @@ export default {
         format: 'umd'
     },
     plugins: plugins,
-    name: 'ireceipt',
+    name: 'IReceipt',
     external: Object.keys(pkg.dependencies),
     banner: `/*!
-    * Ireceipt v${pkg.version} (${pkg.homepage})
+    * iReceipt v${pkg.version} (${pkg.homepage})
     * Copyright ${year} ${pkg.author}
     * Licensed under MIT (https://github.com/kf99916/iReceipt/blob/master/LICENSE)
     */`
