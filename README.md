@@ -20,7 +20,7 @@ npm install ireceipt --save
 
 ### Run in a Browser
 
-Just leverage <a href="https://webpack.js.org/" target="_blank">Webpack<a> to bundle `IReceipt` to let `IReceipt` work in a browser.
+Just leverage <a href="https://webpack.js.org/" target="_blank">Webpack</a> to bundle `IReceipt` to let `IReceipt` work in a browser.
 
 ## Usage
 
