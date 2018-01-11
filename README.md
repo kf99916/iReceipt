@@ -18,6 +18,10 @@ Generate Taiwan's electronic receipt including QR code, bar code, and XML for Na
 npm install ireceipt --save
 ```
 
+### Run in a Browser
+
+Just leverage <a href="https://webpack.js.org/" target="_blank">Webpack<a> to bundle `IReceipt` to let `IReceipt` work in a browser.
+
 ## Usage
 
 ```javascript
@@ -73,7 +77,7 @@ The receipt JavaScript object. It owns a `ReceiptInfo`, `Item`s and creates a `A
 `renderRightQRCode()` generate right QR code svg string. return `Promise`.  
 `renderLeftQRCode(AESKey)` generate left QR code svg string. return `Promise`.  
 
-`AESKey` the type is array (see the usage section) and the AES key is applied from National Taxation Bureau. More details: <a href="https://pjchender.blogspot.tw/2015/07/qrcodeaes.html">取得電子發票QRCODE中AES加密金鑰</a>
+`AESKey` the type is array (see the usage section) and the AES key is applied from National Taxation Bureau. More details: <a href="https://pjchender.blogspot.tw/2015/07/qrcodeaes.html" target="_blank">取得電子發票QRCODE中AES加密金鑰</a>
 
 `renderBarCode()`generate bar code svg string. return `Promise`.  
 `render(AESKey)` render Taiwan's electronic receipt. return `Promise`.
@@ -145,10 +149,10 @@ Encode type for QR code enum.
 
 ## Reference
 
-* <a href="https://www.einvoice.nat.gov.tw/">E-invoice Platform (財政部電子發票整合服務平台)</a>
-* <a href="https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1479449792874_0.6(20161115).pdf">電子發票證明聯一維及二維條碼規格說明(V1.6)</a>
-* <a href="https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1447235507091_0.zip">電子發票資料交換標準文件與範例(V3.1.2)</a>
-* <a href="https://pjchender.blogspot.tw/2015/07/qrcodeaes.html">取得電子發票QRCODE中AES加密金鑰</a>
+* <a href="https://www.einvoice.nat.gov.tw/" target="_blank">E-invoice Platform (財政部電子發票整合服務平台)</a>
+* <a href="https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1479449792874_0.6(20161115).pdf" target="_blank">電子發票證明聯一維及二維條碼規格說明(V1.6)</a>
+* <a href="https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1447235507091_0.zip" target="_blank">電子發票資料交換標準文件與範例(V3.1.2)</a>
+* <a href="https://pjchender.blogspot.tw/2015/07/qrcodeaes.html" target="_blank">取得電子發票QRCODE中AES加密金鑰</a>
 
 ## Author
 
