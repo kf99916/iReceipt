@@ -8,7 +8,8 @@ let filename = 'ireceipt.js',
     plugins = [
         html(),
         babel({
-            exclude: 'node_modules/**'
+            exclude: 'node_modules/**',
+            externalHelpers: true
         })
     ];
 if (process.env.NODE_ENV === 'production') {
@@ -20,21 +21,21 @@ export default {
     input: 'src/js/receipt.js',
     output: {
         file: 'dist/js/' + filename,
-        format: 'umd'
+        format: 'umd',
+        name: 'IReceipt',
+        globals: {
+            xml2js: 'xml2js',
+            'date-fns': 'datefns',
+            'aes-js': 'aesjs',
+            jsbarcode: 'JsBarcode',
+            qrcode: 'QRCode'
+        },
+        banner: `/*!
+        * iReceipt v${pkg.version} (${pkg.homepage})
+        * Copyright ${year} ${pkg.author}
+        * Licensed under MIT (https://github.com/kf99916/iReceipt/blob/master/LICENSE)
+        */`
     },
     plugins: plugins,
-    name: 'IReceipt',
-    external: Object.keys(pkg.dependencies),
-    globals: {
-        xml2js: 'xml2js',
-        'date-fns/esm': 'esm',
-        'aes-js': 'aesjs',
-        jsbarcode: 'JsBarcode',
-        qrcode: 'QRCode'
-    },
-    banner: `/*!
-    * iReceipt v${pkg.version} (${pkg.homepage})
-    * Copyright ${year} ${pkg.author}
-    * Licensed under MIT (https://github.com/kf99916/iReceipt/blob/master/LICENSE)
-    */`
+    external: Object.keys(pkg.dependencies)
 };

@@ -8,7 +8,7 @@ import EncodeType from './encode-type';
 import aes from './aes';
 import JsBarcode from 'jsbarcode';
 import QRCode from 'qrcode';
-import { format } from 'date-fns/esm';
+import { format } from 'date-fns';
 import template from '../template/ireceipt.html';
 
 const defaultInvoiceAttr = {
@@ -224,7 +224,7 @@ class Receipt {
                             ${this.info.number}
                         </div>
                         <div class="receipt-issue-time">
-                            ${format(this.info.date, 'YYYY-MM-DD hh:mm:ss')}
+                            ${format(this.info.date, 'yyyy-MM-dd hh:mm:ss')}
                         </div>
                         <div class="receipt-random-number">
                             隨機碼 ${this.info.randomNumber}
