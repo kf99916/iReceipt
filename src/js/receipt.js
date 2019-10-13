@@ -8,7 +8,7 @@ import EncodeType from './encode-type';
 import aes from './aes';
 import JsBarcode from 'jsbarcode';
 import QRCode from 'qrcode';
-import { format } from 'date-fns/esm';
+import { format } from 'date-fns';
 import template from '../template/ireceipt.html';
 
 const defaultInvoiceAttr = {
@@ -36,9 +36,7 @@ class Receipt {
         if (!(info instanceof ReceiptInfo)) {
             throw new TypeError('Info is not ReceiptInfo class!');
         }
-        const invalidItems = items.filter(item => {
-            return !(item instanceof Item);
-        });
+        const invalidItems = items.filter(item => !(item instanceof Item));
         if (invalidItems.length > 0) {
             throw new TypeError('Some items are not Item class!');
         }
@@ -58,28 +56,22 @@ class Receipt {
     // 53925591  10510LC60122037...
     // The range of receipt number is the 15th position and 10 characters
     static parseWinnersList(winnersList) {
-        return winnersList.split(/\n|\r\n?/).map(winner => {
-            return winner.substr(15, 10);
-        });
+        return winnersList
+            .split(/\n|\r\n?/)
+            .map(winner => winner.substr(15, 10));
     }
 
     // Getters
     get taxItems() {
-        return this.items.filter(item => {
-            return item.taxType === TaxType.TAX;
-        });
+        return this.items.filter(item => item.taxType === TaxType.TAX);
     }
 
     get freeTaxItems() {
-        return this.items.filter(item => {
-            return item.taxType === TaxType.FREE_TAX;
-        });
+        return this.items.filter(item => item.taxType === TaxType.FREE_TAX);
     }
 
     get zeroTaxItems() {
-        return this.items.filter(item => {
-            return item.taxType === TaxType.ZERO_TAX;
-        });
+        return this.items.filter(item => item.taxType === TaxType.ZERO_TAX);
     }
 
     get chineseYear() {
@@ -92,9 +84,7 @@ class Receipt {
     }
 
     get totalQuantity() {
-        return this.items.reduce((sum, item) => {
-            return sum + item.quantity;
-        }, 0);
+        return this.items.reduce((sum, item) => sum + item.quantity, 0);
     }
 
     // Methods
@@ -103,9 +93,7 @@ class Receipt {
         let receiptObject = {
             $: defaultInvoiceAttr,
             Main: this.info.toXMLObject(),
-            Details: this.items.map(item => {
-                return item.toXMLObject();
-            }),
+            Details: this.items.map(item => item.toXMLObject()),
             Amounts: this.amount.toXMLObject()
         };
 
@@ -166,7 +154,7 @@ class Receipt {
                 8
             ),
             plainText = this.info.number + this.info.randomNumber,
-            padding = 16 - plainText.length % 16;
+            padding = 16 - (plainText.length % 16);
 
         plainText += utils.repeat(padding, padding);
 
@@ -224,7 +212,7 @@ class Receipt {
                             ${this.info.number}
                         </div>
                         <div class="receipt-issue-time">
-                            ${format(this.info.date, 'YYYY-MM-DD hh:mm:ss')}
+                            ${format(this.info.date, 'yyyy-MM-dd hh:mm:ss')}
                         </div>
                         <div class="receipt-random-number">
                             隨機碼 ${this.info.randomNumber}
@@ -276,21 +264,15 @@ class Receipt {
     }
 
     get taxItems() {
-        return this.items.filter(item => {
-            return item.taxType === TaxType.TAX;
-        });
+        return this.items.filter(item => item.taxType === TaxType.TAX);
     }
 
     get freeTaxItems() {
-        return this.items.filter(item => {
-            return item.taxType === TaxType.FREE_TAX;
-        });
+        return this.items.filter(item => item.taxType === TaxType.FREE_TAX);
     }
 
     get zeroTaxItems() {
-        return this.items.filter(item => {
-            return item.taxType === TaxType.ZERO_TAX;
-        });
+        return this.items.filter(item => item.taxType === TaxType.ZERO_TAX);
     }
 
     get chineseYear() {
@@ -303,9 +285,7 @@ class Receipt {
     }
 
     get totalQuantity() {
-        return this.items.reduce((sum, item) => {
-            return sum + item.quantity;
-        }, 0);
+        return this.items.reduce((sum, item) => sum + item.quantity, 0);
     }
 }
 
