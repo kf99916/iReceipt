@@ -6,6 +6,5 @@
                 "modules": false
             }
         ]
-    ],
-    "plugins": ["@babel/plugin-external-helpers"]
+    ]
 }

@@ -9,7 +9,7 @@ let filename = 'ireceipt.js',
         html(),
         babel({
             exclude: 'node_modules/**',
-            externalHelpers: true
+            runtimeHelpers: true
         })
     ];
 if (process.env.NODE_ENV === 'production') {
