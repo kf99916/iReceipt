@@ -3,11 +3,9 @@ import TaxType from './tax-type';
 class Amount {
     constructor(taxItems, freeTaxItems, zeroTaxItems) {
         const taxRate = 0.05;
+        let amounts = taxItems.map(item => item.amount / (1 + taxRate));
         this.salesAmount = Math.round(
-            taxItems.reduce(
-                (amount, item) => (amount + item.amount) / (1 + taxRate),
-                0
-            )
+            amounts.reduce((amount, item) => amount + item, 0)
         );
         this.freeTaxSalesAmount = Math.round(
             freeTaxItems.reduce((amount, item) => amount + item.amount, 0)
