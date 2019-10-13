@@ -2,7 +2,7 @@
     "name": "ireceipt",
     "version": "1.0.3",
     "description": "Generate Taiwan's electronic receipt including QR code, bar code, and XML for National Taxation Bureau",
-    "main": "dist/js/ireceipt.min.js",
+    "main": "dist/js/ireceipt.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "run-p build:*",
