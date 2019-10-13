@@ -1,5 +1,5 @@
 /*!
-        * iReceipt v1.0.2 (https://github.com/kf99916/iReceipt)
+        * iReceipt v1.0.3 (https://github.com/kf99916/iReceipt)
         * Copyright 2019 [object Object]
         * Licensed under MIT (https://github.com/kf99916/iReceipt/blob/master/LICENSE)
         */
@@ -122,8 +122,11 @@
       function Amount(taxItems, freeTaxItems, zeroTaxItems) {
         babelHelpers.classCallCheck(this, Amount);
         var taxRate = 0.05;
-        this.salesAmount = Math.round(taxItems.reduce(function (amount, item) {
-          return (amount + item.amount) / (1 + taxRate);
+        var amounts = taxItems.map(function (item) {
+          return item.amount / (1 + taxRate);
+        });
+        this.salesAmount = Math.round(amounts.reduce(function (amount, item) {
+          return amount + item;
         }, 0));
         this.freeTaxSalesAmount = Math.round(freeTaxItems.reduce(function (amount, item) {
           return amount + item.amount;
@@ -270,9 +273,9 @@
           var receiptObject = {
             $: defaultInvoiceAttr,
             Main: this.info.toXMLObject(),
-            Details: this.items.map(function (item) {
+            Details: [this.items.map(function (item) {
               return item.toXMLObject();
-            }),
+            })],
             Amounts: this.amount.toXMLObject()
           };
           var builder = new xml2js.Builder({
