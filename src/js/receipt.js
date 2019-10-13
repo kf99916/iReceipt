@@ -93,7 +93,7 @@ class Receipt {
         let receiptObject = {
             $: defaultInvoiceAttr,
             Main: this.info.toXMLObject(),
-            Details: this.items.map(item => item.toXMLObject()),
+            Details: [this.items.map(item => item.toXMLObject())],
             Amounts: this.amount.toXMLObject()
         };
 
