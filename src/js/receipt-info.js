@@ -9,7 +9,8 @@ class ReceiptInfo {
         type = '07',
         carrier,
         donationID,
-        orderno
+        orderno,
+        randomNumber
     ) {
         this.number = number;
         this.date = date;
@@ -19,7 +20,8 @@ class ReceiptInfo {
         this.carrier = carrier;
         this.donationID = donationID;
         this.orderno = orderno;
-        this.randomNumber = Math.floor(1000 + Math.random() * 9000);
+        this.randomNumber =
+            randomNumber || Math.floor(1000 + Math.random() * 9000);
     }
 
     toXMLObject() {
