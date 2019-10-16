@@ -94,6 +94,7 @@
       var carrier = arguments.length > 5 ? arguments[5] : undefined;
       var donationID = arguments.length > 6 ? arguments[6] : undefined;
       var orderno = arguments.length > 7 ? arguments[7] : undefined;
+      var randomNumber = arguments.length > 8 ? arguments[8] : undefined;
 
       _classCallCheck(this, ReceiptInfo);
 
@@ -105,7 +106,7 @@
       this.carrier = carrier;
       this.donationID = donationID;
       this.orderno = orderno;
-      this.randomNumber = Math.floor(1000 + Math.random() * 9000);
+      this.randomNumber = randomNumber || Math.floor(1000 + Math.random() * 9000);
     }
 
     _createClass(ReceiptInfo, [{
