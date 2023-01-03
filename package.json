@@ -51,7 +51,7 @@
         "dist"
     ],
     "devDependencies": {
-        "@babel/core": "~7.0.0",
+        "@babel/core": "~7.20.7",
         "@babel/preset-env": "~7.6.3",
         "npm-run-all": "~4.1",
         "rollup": "~1.23",
